@@ -1,15 +1,25 @@
-#!/usr/bin/env python3
+# lib/testing/user_test.py
+import pytest
+from lib.user import User
+from lib.teacher import Teacher
+from lib.student import Student
 
-from user import User
+def test_user():
+    user = User("John", "Doe")
+    assert user.first_name == "John"
+    assert user.last_name == "Doe"
 
-class TestUser:
-    '''Class "User" in user.py'''
+def test_teacher():
+    teacher = Teacher("Jane", "Smith")
+    assert teacher.first_name == "Jane"
+    assert teacher.last_name == "Smith"
+    assert len(teacher.knowledge) > 0
+    assert teacher.teach() in teacher.knowledge
 
-    def test_is_class(self):
-        '''is a class.'''
-        assert(object in User.__bases__)
-
-    def test_initializes_with_names(self):
-        '''initializes with first and last name.'''
-        my_user = User("My", "User")
-        assert((my_user.first_name, my_user.last_name) == ("My", "User"))
+def test_student():
+    student = Student("Alice", "Johnson")
+    assert student.first_name == "Alice"
+    assert student.last_name == "Johnson"
+    assert student.knowledge == []
+    student.learn("new knowledge")
+    assert "new knowledge" in student.knowledge
